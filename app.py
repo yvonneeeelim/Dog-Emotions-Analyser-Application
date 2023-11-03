@@ -29,7 +29,7 @@ if selected_tab == "Upload your Pet Video":
     st.header("Upload your Pet Video")
 
     # Load the trained model
-    model = tf.keras.models.load_model()("efficientnet_model.keras")
+    model = tf.keras.models.load_model("efficientnet_model.keras")
 
     def preprocess_frames(frames):
         processed_frames = []
