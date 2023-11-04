@@ -29,7 +29,8 @@ if selected_tab == "Upload your Pet Video":
     st.header("Upload your Pet Video")
 
     # Load the trained model
-    model = load_model("rf_model.pkl")
+    with open("rf_model.pkl", 'rb') as our_model:
+        model = pickle.load(our_model)
 
     def preprocess_frames(frames):
         processed_frames = []
