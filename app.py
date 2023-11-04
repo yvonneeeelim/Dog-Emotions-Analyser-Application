@@ -29,7 +29,7 @@ if selected_tab == "Upload your Pet Video":
     st.header("Upload your Pet Video")
 
     # Load the trained model
-    model = load_model("efficientnet_model.h5")
+    model = load_model("rf_model.pkl")
 
     def preprocess_frames(frames):
         processed_frames = []
@@ -45,7 +45,7 @@ if selected_tab == "Upload your Pet Video":
         frame_height = int(cap.get(4))
         out = cv2.VideoWriter(output_video_path, cv2.VideoWriter_fourcc(*'mp4v'), 30, (frame_width, frame_height))
 
-        class_labels = ['Happy', 'Sad', 'Relaxed', 'Curious', 'Angry']
+        class_labels = ['Happy', 'Sad', 'Relaxed', 'Angry']
 
         while True:
             ret, frame = cap.read()
@@ -122,7 +122,7 @@ elif selected_tab == "Upload your Pet Image":
     st.header("Upload your Pet Image")
    
     # Load the trained model
-    model = load_model("cnn_model.h5")
+    model = load_model("rf_model.pkl")
 
     # Get user input for image upload
     uploaded_file = st.file_uploader('Upload an image of your pet to understand its behaviour', type=['jpg', 'jpeg', 'png'])
