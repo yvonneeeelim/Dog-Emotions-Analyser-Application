@@ -8,7 +8,7 @@ import pickle
 import tempfile
 from PIL import Image
 from tensorflow.keras.models import load_model
-import h5py as h5
+from tensorflow.keras.preprocessing.image import img_to_array, load_img, array_to_img
 
 
 # opening the image
@@ -26,9 +26,11 @@ selected_tab = st.radio("Choose from below options:", ["Upload your Pet Video", 
 
 if selected_tab == "Upload your Pet Video":
     st.header("Upload your Pet Video")
-
+    
+    class_labels = ['Angry', 'Happy', 'Relaxed', 'Sad']
+    
     # Load the trained model
-    model = load_model("efficientnet_model.h5")
+    model = load_model("efficientnet_model.h5",compile=False)
 
     def preprocess_frames(frames):
         processed_frames = []
@@ -54,7 +56,6 @@ if selected_tab == "Upload your Pet Video":
             frames.append(resized_frame)
 
             # Make prediction
-            class_labels = ['Angry', 'Happy', 'Relaxed', 'Sad']
             processed_frame = preprocess_frames(np.array(frames))
             predictions = model.predict(np.array(processed_frame))
             predicted_class_index = np.argmax(predictions)
@@ -120,7 +121,7 @@ elif selected_tab == "Upload your Pet Image":
     st.header("Upload your Pet Image")
    
     # Load the trained model
-    model = load_model("efficientnet_model.h5")
+    model = load_model("efficientnet_model.h5", compile=False)
 
     # Get user input for image upload
     uploaded_file = st.file_uploader('Upload an image of your pet to understand its behaviour', type=['jpg', 'jpeg', 'png'])
