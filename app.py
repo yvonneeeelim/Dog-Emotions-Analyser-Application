@@ -7,6 +7,7 @@ import numpy as np
 import pickle
 import tempfile
 from PIL import Image
+from tensorflow.keras.models import load_model
 
 
 # opening the image
@@ -26,15 +27,14 @@ if selected_tab == "Upload your Pet Video":
     st.header("Upload your Pet Video")
 
     # Load the trained model
-    with open("dt.pkl", 'rb') as our_model:
-        model = pickle.load(our_model)
+    with open('efficientnet_model.pkl', 'rb') as model_file:
+        model = pickle.load(model_file)
 
     def preprocess_frames(frames):
         processed_frames = []
         for frame in frames:
             frame = frame.astype(np.float32) / 255.0  # Normalize pixel values to [0, 1]
-            flattened_frame = frame.flatten()  # Flatten the frame into a 1D array
-            processed_frames.append(flattened_frame)
+            processed_frames.append(frame)
         return np.array(processed_frames)
 
     def annotate_video(input_video_path, output_video_path, model):
@@ -121,8 +121,8 @@ elif selected_tab == "Upload your Pet Image":
     st.header("Upload your Pet Image")
    
     # Load the trained model
-    with open("dt.pkl", 'rb') as our_model:
-        model = pickle.load(our_model)
+    with open('efficientnet_model.pkl', 'rb') as model_file:
+        model = pickle.load(model_file)
 
     # Get user input for image upload
     uploaded_file = st.file_uploader('Upload an image of your pet to understand its behaviour', type=['jpg', 'jpeg', 'png'])
@@ -135,7 +135,7 @@ elif selected_tab == "Upload your Pet Image":
 
         # Load new images for prediction
         new_image = image
-        new_image_array = np.array(new_image.resize((32, 32))).flatten()  # Resize the image to match the model's input shape and flatten it
+        new_image_array = np.array(new_image.resize((32, 32)))  # Resize the image to match the model's input shape
         new_image_array = np.expand_dims(new_image_array, axis=0)  # Add batch dimension
         new_image_array = new_image_array / 255.0  # Normalize the pixel values (same as during training)
 
