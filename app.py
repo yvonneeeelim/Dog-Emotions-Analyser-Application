@@ -44,8 +44,6 @@ if selected_tab == "Upload your Pet Video":
         frame_height = int(cap.get(4))
         out = cv2.VideoWriter(output_video_path, cv2.VideoWriter_fourcc(*'mp4v'), 30, (frame_width, frame_height))
 
-        class_labels = ['Angry', 'Happy', 'Relaxed', 'Sad']
-
         while True:
             ret, frame = cap.read()
             if not ret:
@@ -56,8 +54,8 @@ if selected_tab == "Upload your Pet Video":
             frames.append(resized_frame)
 
             # Make prediction
+            class_labels = ['Angry', 'Happy', 'Relaxed', 'Sad']
             processed_frame = preprocess_frames(np.array(frames))
-            print(type(model)) 
             predictions = model.predict(processed_frame)
             predicted_class_index = np.argmax(predictions)
             behaviour = class_labels[predicted_class_index]
