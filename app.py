@@ -27,7 +27,7 @@ if selected_tab == "Upload your Pet Video":
     st.header("Upload your Pet Video")
 
     # Load the trained model
-    with open('efficientnet_model.pkl', 'rb') as model_file:
+    with open('efficientnet_model.h5', 'rb') as model_file:
         model = pickle.load(model_file)
 
     def preprocess_frames(frames):
@@ -121,7 +121,7 @@ elif selected_tab == "Upload your Pet Image":
     st.header("Upload your Pet Image")
    
     # Load the trained model
-    with open('efficientnet_model.pkl', 'rb') as model_file:
+    with open('efficientnet_model.h5', 'rb') as model_file:
         model = pickle.load(model_file)
 
     # Get user input for image upload
