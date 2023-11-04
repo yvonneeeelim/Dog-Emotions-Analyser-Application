@@ -57,6 +57,7 @@ if selected_tab == "Upload your Pet Video":
 
             # Make prediction
             processed_frame = preprocess_frames(np.array(frames))
+            print(type(model)) 
             predictions = model.predict(processed_frame)
             predicted_class_index = np.argmax(predictions)
             behaviour = class_labels[predicted_class_index]
