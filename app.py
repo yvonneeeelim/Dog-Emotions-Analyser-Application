@@ -50,8 +50,8 @@ if selected_tab == "Upload your Pet Video":
             if not ret:
                 break
 
-            # Resize the frame to match the model's input shape (32x32)
-            resized_frame = cv2.resize(frame, (32, 32))
+            # Resize the frame to match the model's input shape (384x384)
+            resized_frame = cv2.resize(frame, (384, 384))
             frames.append(resized_frame)
 
             # Make prediction
@@ -133,7 +133,7 @@ elif selected_tab == "Upload your Pet Image":
 
         # Load new images for prediction
         new_image = image
-        new_image_array = np.array(new_image.resize((32, 32)))  # Resize the image to match the model's input shape
+        new_image_array = np.array(new_image.resize((384, 384)))  # Resize the image to match the model's input shape
         new_image_array = np.expand_dims(new_image_array, axis=0)  # Add batch dimension
         new_image_array = new_image_array / 255.0  # Normalize the pixel values (same as during training)
 
