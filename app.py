@@ -55,7 +55,7 @@ if selected_tab == "Upload your Pet Video":
 
             # Make prediction
             class_labels = ['Angry', 'Happy', 'Relaxed', 'Sad']
-            processed_frame = preprocess_frames(frames)
+            processed_frame = preprocess_frames(np.array(frames))
             predictions = model.predict(processed_frame)
             predicted_class_index = np.argmax(predictions)
             behaviour = class_labels[predicted_class_index]
