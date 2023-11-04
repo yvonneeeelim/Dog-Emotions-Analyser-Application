@@ -33,7 +33,8 @@ if selected_tab == "Upload your Pet Video":
         processed_frames = []
         for frame in frames:
             frame = frame.astype(np.float32) / 255.0  # Normalize pixel values to [0, 1]
-            processed_frames.append(frame)
+            flattened_frame = frame.flatten()  # Flatten the frame into a 1D array
+            processed_frames.append(flattened_frame)
         return np.array(processed_frames)
 
     def annotate_video(input_video_path, output_video_path, model):
@@ -43,7 +44,7 @@ if selected_tab == "Upload your Pet Video":
         frame_height = int(cap.get(4))
         out = cv2.VideoWriter(output_video_path, cv2.VideoWriter_fourcc(*'mp4v'), 30, (frame_width, frame_height))
 
-        class_labels = ['Happy', 'Sad', 'Relaxed', 'Angry']
+        class_labels = ['Angry', 'Happy', 'Relaxed', 'Sad']
 
         while True:
             ret, frame = cap.read()
@@ -134,7 +135,7 @@ elif selected_tab == "Upload your Pet Image":
 
         # Load new images for prediction
         new_image = image
-        new_image_array = np.array(new_image.resize((32, 32)))  # Resize the image to match the model's input shape
+        new_image_array = np.array(new_image.resize((32, 32))).flatten()  # Resize the image to match the model's input shape and flatten it
         new_image_array = np.expand_dims(new_image_array, axis=0)  # Add batch dimension
         new_image_array = new_image_array / 255.0  # Normalize the pixel values (same as during training)
 
@@ -145,7 +146,7 @@ elif selected_tab == "Upload your Pet Image":
         predicted_class_index = np.argmax(predictions, axis=1)[0]
 
         # Indicate class names
-        class_names = ['Angry', 'Curious', 'Happy', 'Relaxed', 'Sad']
+        class_names = ['Angry', 'Happy', 'Relaxed', 'Sad']
 
         # Get the predicted class name
         predicted_class_name = class_names[predicted_class_index]
