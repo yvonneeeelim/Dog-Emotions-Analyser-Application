@@ -7,6 +7,7 @@ import numpy as np
 import pickle
 import tempfile
 from PIL import Image
+from efficientnet.tfkeras import EfficientNetB4
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array, load_img, array_to_img
 
